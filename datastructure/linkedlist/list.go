@@ -31,6 +31,14 @@ func (l *List) IsEmpty() bool {
 	return l.Len() == 0
 }
 
+func (l *List) Front() *Node {
+	return l.head
+}
+
+func (l *List) Back() *Node {
+	return l.tail
+}
+
 // PushFront describes list insertion classic operation
 func (l *List) PushFront(v int) {
 	newNode := &Node{value: v}
