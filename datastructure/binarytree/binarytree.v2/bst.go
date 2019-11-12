@@ -202,8 +202,9 @@ func deleteNode(treeNode *TreeNode, key int) *TreeNode {
 		treeNode.rightNode = deleteNode(treeNode.rightNode, key)
 		return treeNode
 	}
-
-	// #####We are in the current node that will be delete#####
+	// ########################################################
+	// ##### We are in the current node that will be delete ###
+	// ########################################################
 
 	// Rule: If the node being deleted has no children, simply delete it.
 	if treeNode.leftNode == nil && treeNode.rightNode == nil {
