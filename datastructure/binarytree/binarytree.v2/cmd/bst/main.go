@@ -8,12 +8,6 @@ import (
 
 func main() {
 	t := binarytree.New()
-	//t.InsertElement(1, 8)
-	//t.InsertElement(3, 4)
-	//t.InsertElement(2, 3)
-	//t.InsertElement(5, 12)
-	//t.InsertElement(4, 10)
-	//t.InsertElement(6, 13)
 	t.InsertElement(1, 1)
 	t.InsertElement(3, 3)
 	t.InsertElement(5, 5)
