@@ -69,3 +69,7 @@ func quickSort(l []int) []int {
 	quickSort(l[left+1:])
 	return l
 }
+
+func QuickSortClassic(l []int) []int {
+
+}
