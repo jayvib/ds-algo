@@ -26,7 +26,7 @@ func MergeSort(array []int) []int {
 func JoinArray(leftArr []int, rightArr []int) []int {
 	var i, j int
 	n := len(leftArr) + len(rightArr) // the total number of items
-	arr := make([]int, n) // create a container for the sorted items
+	arr := make([]int, n)             // create a container for the sorted items
 
 	for k := 0; k < n; k++ {
 		if i > len(leftArr)-1 && j <= len(rightArr)-1 { // Process the remaining item from right array
@@ -40,7 +40,7 @@ func JoinArray(leftArr []int, rightArr []int) []int {
 			i++ // move cursor to next item.
 		} else {
 			arr[k] = rightArr[j] // if right value is lesser than the left value
-			j++ // move cursor to next item.
+			j++                  // move cursor to next item.
 		}
 	}
 	return arr
@@ -61,7 +61,7 @@ func MergeSortReview(nums []int) []int {
 }
 
 func JoinArrayReview(leftArr, rightArr []int) []int {
-	total := len(leftArr)+len(rightArr)
+	total := len(leftArr) + len(rightArr)
 	merged := make([]int, total)
 	var i, j, k int
 
@@ -71,23 +71,70 @@ func JoinArrayReview(leftArr, rightArr []int) []int {
 			merged[k] = rightArr[j]
 			j++
 
-		// process when the right side is exhausted
+			// process when the right side is exhausted
 		} else if j > len(rightArr)-1 && i <= len(leftArr)-1 {
 			merged[k] = leftArr[i]
 			i++
 
-		// when the left array value is lesser than the right array value
+			// when the left array value is lesser than the right array value
 		} else if leftArr[i] < rightArr[j] {
 			merged[k] = leftArr[i]
 			i++
 
-		// when the right array value is lesser than the left array value
+			// when the right array value is lesser than the left array value
 		} else if leftArr[i] > rightArr[j] {
 			merged[k] = rightArr[j]
 			j++
 		}
 	}
 	return merged
+}
+
+func MergeSortReview2(arr []int) []int {
+	size := len(arr)
+	if size < 2 {
+		return arr
+	}
+
+	// make a partition
+	var middle int
+	middle = size / 2
+	return JoinArrayReview2(MergeSortReview2(arr[:middle]), MergeSortReview2(arr[middle+1:]))
+}
+
+func JoinArrayReview2(leftArray []int, rightArray []int) []int {
+	leftSize := len(leftArray)
+	rightSize := len(rightArray)
+	totalSize := leftSize + rightSize
+
+	// make a container to store the sorted values
+	sorted := make([]int, totalSize)
+
+	// the cursor for the left and right array
+	var i, j int
+
+	// loop on the two arrays, compare and merge
+	for k := 0; k < totalSize; k++ {
+		// when the left array is exhausted
+		if i > leftSize-1 && j <= rightSize-1 {
+			// then put the current index value of j
+			sorted[k] = rightArray[j]
+			j++
+
+			// when the right array is exhausted
+		} else if j > rightSize-1 && i <= leftSize-1 {
+			sorted[k] = leftArray[i]
+			i++
+
+		} else if leftArray[i] < rightArray[j] {
+			sorted[k] = leftArray[i]
+			i++
+		} else if leftArray[i] > rightArray[j] {
+			sorted[k] = rightArray[j]
+			j++
+		}
+	}
+	return sorted
 }
 
 func main() {
