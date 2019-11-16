@@ -1,6 +1,8 @@
 package quicksort
 
-import "math/rand"
+import (
+	"math/rand"
+)
 
 func QuickSort(l []int) []int {
 	if len(l) < 2 { // this will be the base case. Then the subarray has zero or one element
@@ -10,7 +12,7 @@ func QuickSort(l []int) []int {
 	// define the left and right pointers
 	left, right := 0, len(l)-1
 
-	// define the pivot
+	// define the pivot select a random pivot
 	pivot := rand.Int() % len(l)
 
 	// move the pivot at the last element
@@ -70,6 +72,39 @@ func quickSort(l []int) []int {
 	return l
 }
 
-func QuickSortClassic(l []int) []int {
 
+func QuickSortReview(array []int) []int {
+	size := len(array)
+	if size < 2 {
+		return array
+	}
+
+	// determine the left and right index
+	left, right := 0, size-1
+
+	// pick a random pivot index
+	pivot := rand.Int() % size
+
+	// put the pivot value to the last array
+	array[right], array[pivot] = array[pivot], array[right]
+
+	// group the value that are less than the pivot
+	// to the left side of the array
+	for i := 0; i < size; i++ {
+		if array[i] < array[right] {
+			array[left], array[i] = array[i], array[left]
+			left++
+		}
+	}
+
+	// make a partition. Put the pivot
+	// to the correct position
+	array[right], array[left] = array[left], array[right]
+
+	// Quick Sort the left group array
+	QuickSortReview(array[:left])
+
+	// Quick Sort the right group array
+	QuickSortReview(array[left+1:])
+	return array
 }
