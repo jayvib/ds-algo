@@ -104,3 +104,29 @@ func GetAppearingElementSortedReview(elements []int) int {
 	}
 	return max
 }
+
+func GetMaximumApearingElementSortedReview2(elements []int) int {
+	// set the initaial maximum element
+	max := elements[0]
+	maxCount := 1
+	current := elements[0]
+	currentCount :=1
+	if !sort.IsSorted(sort.IntSlice(elements)) {
+		sort.Ints(elements)
+	}
+
+	for i := 1; i < len(elements); i++ {
+		if elements[i] == elements[i-1] {
+			currentCount++
+		} else {
+				current = elements[i]
+				currentCount = 1
+		}
+
+		if currentCount > maxCount {
+			max = current
+			maxCount = currentCount
+		}
+	}
+	return max
+}
