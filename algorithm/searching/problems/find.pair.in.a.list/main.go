@@ -1,6 +1,9 @@
 package main
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 // Problem:
 // Given a list of n number, find two elements such that their sum is equal to "value"
@@ -43,5 +46,6 @@ func FindPairSorted(in []int, value int) [][2]int {
 }
 
 func main() {
-
+	input := []int{1, 2, 3, 4, 6, 2, 3, 3}
+	fmt.Println(FindPairSorted(input, 4))
 }
