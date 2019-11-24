@@ -24,3 +24,17 @@ func SortIntReview(elements []int) {
 		}
 	}
 }
+
+
+func SortIntReview2(elements []int) {
+	size := len(elements)
+
+	for i := 0; i < size-1; i++ {
+		for j := 0; j < size-i-1; i++ {
+			if elements[j] > elements[j+1] {
+				// swap
+				elements[j], elements[j+1] = elements[j+1], elements[j]
+			}
+		}
+	}
+}

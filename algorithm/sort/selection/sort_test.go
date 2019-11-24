@@ -11,3 +11,4 @@ func TestSortInt(t *testing.T) {
 	SortInt(input)
 	assert.Equal(t, want, input)
 }
+

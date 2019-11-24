@@ -189,14 +189,14 @@ func deleteNode(treeNode *TreeNode, key int) *TreeNode {
 		return nil
 	}
 
-	// Rule: If the node being deleted has one child, delete it and plug the
+	// Rule 1: If the node being deleted has one child, delete it and plug the
 	// child into the spot where the deleted node was.
 	if key < treeNode.key {
 		treeNode.leftNode = deleteNode(treeNode.leftNode, key)
 		return treeNode
 	}
 
-	// Rule: If the node being deleted has one child, delete it and plug the
+	// Rule 2: If the node being deleted has one child, delete it and plug the
 	// child into the spot where the deleted node was.
 	if key > treeNode.key {
 		treeNode.rightNode = deleteNode(treeNode.rightNode, key)
@@ -206,7 +206,7 @@ func deleteNode(treeNode *TreeNode, key int) *TreeNode {
 	// ##### We are in the current node that will be delete ###
 	// ########################################################
 
-	// Rule: If the node being deleted has no children, simply delete it.
+	// Rule 3: If the node being deleted has no children, simply delete it.
 	if treeNode.leftNode == nil && treeNode.rightNode == nil {
 		treeNode = nil
 		return nil
@@ -229,7 +229,7 @@ func deleteNode(treeNode *TreeNode, key int) *TreeNode {
 	// When the current tree node to be delete
 	// has 2 children.
 	//
-	// Rule: When deleting a node with two children, replace the
+	// Rule 4: When deleting a node with two children, replace the
 	// deleted node with the successor node. The successor node
 	// is the child node whose value is the least of all values that
 	// are greater than the deleted node.

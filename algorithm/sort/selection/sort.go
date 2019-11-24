@@ -17,3 +17,18 @@ func SortInt(l []int) {
 		}
 	}
 }
+
+func SelectionSortInt(elements []int) {
+	size := len(elements)
+	for i := 0; i < size-1; i++ {
+		max := 0
+		for j := 1; j < size-i-1; j++ {
+			if elements[j] > max {
+				max = j
+			}
+		}
+		// put the max value index to the last element
+		elements[size-i-1], elements[max] = elements[max], elements[size-i-1]
+
+	}
+}
