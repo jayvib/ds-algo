@@ -32,10 +32,10 @@ func TestBinarySearch(t *testing.T) {
 
 func TestSearchProducts(t *testing.T) {
 	testCases := []struct{
-		name string
-		input []Keyer
+		name    string
+		input   []Keyer
 		lookFor int
-		want Keyer
+		want    Keyer
 		isFound bool
 	} {
 		{
