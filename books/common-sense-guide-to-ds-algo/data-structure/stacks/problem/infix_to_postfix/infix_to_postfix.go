@@ -5,6 +5,16 @@ import (
 	"strings"
 )
 
+type output []string
+
+func (o *output) push(r rune) {
+	*o = append(*o, string(r))
+}
+
+func (o *output) String() string {
+	return strings.Join(*o, " ")
+}
+
 // Preprocess:
 // Prep 1: Create a stack and list, for operator and output, respectively.
 
@@ -16,45 +26,58 @@ import (
 // Step 3: If the token is a left parenthesis, push it on the stack.
 // Step 4: If the token is a right parenthesis, pop all the operators in the
 //         stack until '(' is returned, then add the operators to the output list
+// Step 5: Drain the remaining operators in the stack and add it to the output list
 
 func InfixToPostfix(input string) string {
 	opStack := stacks.NewRuneStack()
-	output := make([]string, 0)
+	o := make(output, 0)
 
 	for _, r := range input {
+
 		if r == ' ' {
 			continue
 		}
 
+		// Step 1: If the current character is an operand
+		//         add it to the output list
 		if (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') {
-			output = append(output, string(r))
-		}  else if r == '(' {
+			// Append to the output list
+			o.push(r)
+		} else if r == '(' {
+			// Step 3: if the character is a '(' then add it to the stack
 			opStack.Push(r)
 		} else if r == ')' {
-			topOperator := opStack.Pop()
-			for topOperator != '(' {
-				// Append the operators within the parenthesis.
-				output = append(output, string(topOperator))
-				topOperator = opStack.Pop()
+			// Step 4: if the character is a ')' then pop all the operators
+			//         from the stack until '(' is reach and append it to the
+			//         output list
+			topOp := opStack.Pop()
+			for topOp != '(' {
+				o.push(topOp)
+				topOp = opStack.Pop()
 			}
 		} else {
-			// Operator
-			// Remove first the operators that are greater or equal to with  the current
-			// operator.
+			// Step 2: If the character is an operator,
+			//        Cond 1: If the stack is empty or the precedence is lower
+			//       					then in the current stack, push it to the stack
+			//        Cond 2: If not, then pop the operators that has a higher
+			//                precedence and add it to the output list then
+			//                push the current operator
 			for !opStack.IsEmpty() && precedence(opStack.Peek()) >= precedence(r) {
-				output = append(output, string(opStack.Pop()))
+				// Cond 2
+				o.push(opStack.Pop())
 			}
 
-			// Push the operator
+			// Cond 1:
 			opStack.Push(r)
 		}
 	}
 
+	// Step 5: Drain the remaining
 	for !opStack.IsEmpty() {
-		output = append(output, string(opStack.Pop()))
+		o.push(opStack.Pop())
 	}
 
-	return strings.Join(output, " ")
+	return o.String()
 }
 
 func precedence(op rune) int {
