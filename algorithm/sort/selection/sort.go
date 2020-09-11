@@ -1,20 +1,18 @@
 package selection
 
+// Compare steps: (N-1)+(N-2)...
 func SortInt(l []int) {
 	size := len(l)
 	for i := 0; i < size; i++ {
-		lowestNumberIndex := i
+		min := i
 		for j := i+1; j < size; j++ {
-			if l[j] < l[lowestNumberIndex] {
-				lowestNumberIndex = j
+			if l[j] < l[min] {
+				min = j
 			}
 		}
-
-		if lowestNumberIndex != i {
-			tmp := l[i]
-			l[i] = l[lowestNumberIndex]
-			l[lowestNumberIndex] = tmp
-		}
+		// Swap, put the ministmum element
+		// to its proper place
+		l[i], l[min] = l[min], l[i]
 	}
 }
 
